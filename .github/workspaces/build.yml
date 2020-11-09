@@ -1,0 +1,70 @@
+# 
+# This special workflow aims to create Jobs in a Matrix for each relevant node version. 
+# A "relevant node version" can be: active, current, maintenance or EOL with some months of tolerance
+# For more details, please check https://github.com/evertonfraga/testable-node-versions
+# 
+
+name: Node versions
+on:
+  schedule:
+    - cron: 0 0 * * *
+  pull_request:
+    types: [opened, reopened, synchronize]
+
+jobs:
+  get-node-versions:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+    steps:
+      - uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node }}
+
+      - uses: actions/checkout@v2
+
+      - run: npx testable-node-versions
+
+      - id: set-matrix
+        run: echo "::set-output name=matrix::$(node ${{github.workspace}}/scripts/node-versions.js)"
+
+  tests:
+    needs: get-node-versions
+    runs-on: ubuntu-latest
+    strategy:
+      matrix: 
+        node: ${{ fromJson(needs.get-node-versions.outputs.matrix) }}
+    steps:
+      - uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node }}
+
+      - uses: actions/checkout@v2
+
+      - run: npm install
+      - run: npm run build
+
+      - name: Test Block
+        run: npm run test
+        working-directory: packages/block
+
+      - name: Test Blockchain
+        run: npm run test
+        working-directory: packages/blockchain
+
+      - name: Test Common
+        run: npm run test
+        working-directory: packages/common
+
+      - name: Test Ethash
+        run: npm run test
+        working-directory: packages/ethash
+
+      - name: Test Tx
+        run: npm run test
+        working-directory: packages/tx
+
+      - name: Test VM
+        run: npm run test:API
+        working-directory: packages/vm
+

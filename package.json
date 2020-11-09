@@ -1,0 +1,32 @@
+{
+  "name": "testable-node-versions",
+  "version": "1.0.0",
+  "description": "Return NodeJS versions available for testing with GitHub Actions",
+  "main": ".bin/testable-node-versions.js",
+  "scripts": {
+    "test": "node tests.js"
+  },
+  "bin": {
+    "testable-node-versions": "testable-node-versions.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/evertonfraga/testable-node-versions.git"
+  },
+  "keywords": [
+    "nodejs",
+    "github",
+    "actions",
+    "github",
+    "workflows"
+  ],
+  "author": "Everton Fraga",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/evertonfraga/testable-node-versions/issues"
+  },
+  "homepage": "https://github.com/evertonfraga/testable-node-versions#readme",
+  "devDependencies": {
+    "node-fetch": "^2.6.1"
+  }
+}
