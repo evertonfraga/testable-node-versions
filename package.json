@@ -1,6 +1,6 @@
 {
   "name": "testable-node-versions",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Return NodeJS versions available for testing with GitHub Actions",
   "main": ".bin/testable-node-versions.js",
   "scripts": {
@@ -27,7 +27,7 @@
     "url": "https://github.com/evertonfraga/testable-node-versions/issues"
   },
   "homepage": "https://github.com/evertonfraga/testable-node-versions#readme",
-  "devDependencies": {
+  "dependencies": {
     "node-fetch": "^2.6.1"
   }
 }
