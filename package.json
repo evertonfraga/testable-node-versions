@@ -4,10 +4,11 @@
   "description": "Return NodeJS versions available for testing with GitHub Actions",
   "main": ".bin/testable-node-versions.js",
   "scripts": {
-    "test": "node tests.js"
+    "test": "node tests.js",
+    "start": "./bin/testable-node-versions.js"
   },
   "bin": {
-    "testable-node-versions": "testable-node-versions.js"
+    "testable-node-versions": "./bin/testable-node-versions.js"
   },
   "repository": {
     "type": "git",
